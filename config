@@ -1,0 +1,97 @@
+{
+  "layer": "top",
+  "position": "top",
+
+  "modules-left":   ["custom/menu", "hyprland/workspaces"],
+  "modules-center": ["mpris"],
+  "modules-right": [
+  "cpu",
+  "memory",
+  "disk",
+  "tray",
+  "hyprland/language",
+  "clock",
+  "battery",
+  "custom/battery_uptime",
+  "custom/power"
+],
+ 
+"battery": {
+  "format": "{capacity}% {icon}",
+  "format-icons": ["", "", "", "", ""]
+},
+
+  "hyprland/language": {
+  "format": "{short}"   // будет 'us' / 'ru'
+},
+
+  "custom/menu": {
+    "format": "",
+    "tooltip": "Applications",
+    "on-click": "/bin/sh -lc 'command -v fuzzel >/dev/null && fuzzel || wofi --show drun'"
+  },
+
+  "hyprland/workspaces": {
+    "format": "{name}",
+    "all-outputs": false,
+    "on-click": "activate"
+  },
+
+  "mpris": {
+    "format": "{title} ",
+    "format-paused": "{title} ",
+    "player-icons": true,
+    "on-click": "playerctl play-pause",
+    "on-scroll-up": "playerctl next",
+    "on-scroll-down": "playerctl previous"
+  },
+
+  "tray": {
+    "icon-size": 20,
+    "spacing": 6
+  },
+
+  "keyboard-state": {
+    "numlock": true,
+    "capslock": true,
+    "format": "{layout}"
+  },
+
+  "custom/power": {
+    "format": "⏻",
+    "tooltip": "Power",
+    "on-click": "/bin/sh -lc '$HOME/.local/bin/powermenu.sh'"
+  },
+
+  "cpu": {
+  "interval": 2,
+  "format": " {usage}%",
+  "tooltip": true
+},
+
+"memory": {
+  "interval": 5,
+  "format": " {percentage}%",
+  "tooltip-format": "{used:0.1f}GiB / {total:0.1f}GiB"
+},
+
+"disk": {
+  "interval": 30,
+  "format": " {percentage_used}%",
+  "path": "/",
+  "tooltip-format": "{used} / {total}"
+},
+
+"clock": {
+  "interval": 60,
+  "format": " {:%H:%M}",
+  "tooltip-format": "{:%A, %d %B %Y}"
+},
+
+"custom/battery_uptime": {
+  "exec": "battery-uptime",
+  "interval": 10,
+  "return-type": "plain",
+  "tooltip": false
+}
+}

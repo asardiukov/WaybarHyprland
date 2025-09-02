@@ -1,0 +1,174 @@
+/* === База: шрифт/размер === */
+* {
+  font-family: "JetBrainsMono Nerd Font", monospace;
+  font-size: 14px;
+  border: none;
+  min-height: 10px;
+}
+
+/* === Парящая шапка с лёгкой дымкой === */
+window#waybar {
+  background: rgba(34, 36, 54, 0.45);     /* дымка */
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+}
+
+/* Скрытие (если используешь hidden mode) */
+window#waybar.hidden { opacity: 0.2; }
+
+/* === Общие правила для видимых модулей === */
+/* Твоя структура: #custom-menu | #workspaces | (справа) #tray + #clock #cpu #memory #disk #battery + #custom-power */
+#custom-menu,
+#workspaces,
+#tray,
+#clock,
+#cpu,
+#memory,
+#disk,
+#battery,
+#custom-power {
+  color: #161320;
+  margin-top: 6px;
+  margin-bottom: 6px;
+  padding-left: 10px;
+  padding-right: 10px;
+  transition: none;
+  border-radius: 10px;
+}
+
+/* Равномерные горизонтальные интервалы между правыми модулями */
+#tray > .tray-item,
+#clock,
+#cpu,
+#memory,
+#disk,
+#battery {
+  margin-left: 6px;
+  margin-right: 6px;
+}
+
+/* Немного «воздуха» слева/справа у крайних элементов */
+#custom-menu { margin-left: 8px; }
+#custom-power { margin-right: 8px; }
+
+/* === Конкретные стили === */
+
+/* Левое меню (иконка/кнопка) */
+#custom-menu {
+  font-size: 18px;
+  color: #89B4FA;
+  background: #161320;         /* тёмная «плашка» */
+  padding-left: 14px;
+  padding-right: 14px;
+}
+#custom-menu:hover {
+  background: #1b1728;            /* чуть светлее #161320 */
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.06) inset;
+}
+
+/* Центр: рабочие столы Hyprland */
+#workspaces {
+  background: rgba(0, 0, 0, 0.45);
+  border-radius: 10px;
+  margin: 6px 5px;
+  padding: 0 6px;
+}
+#workspaces button {
+  all: unset;
+  color: #B5E8E0;
+  background: transparent;
+  padding: 4px 6px;
+  transition: color .2s ease, text-shadow .2s ease, transform .2s ease;
+  border-radius: 8px;
+}
+#workspaces button.occupied { color: #A6E3A1; }
+#workspaces button.active {
+  color: #89B4FA;
+  text-shadow: 0 0 4px #ABE9B3;
+}
+#workspaces button:hover { color: #89B4FA; }
+#workspaces button.urgent {
+  color: #0b1220;
+  background: #f38ba8;
+}
+
+/* Правые модули — «цветные бейджи» как в примере */
+#clock   { background: #ABE9B3; } /* мягкий зелёный */
+#cpu     { background: #96CDFB; }
+#memory  { background: #DDB6F2; }
+#disk    { background: #F5C2E7; }
+#battery { background: #F8BD96; } /* тёплый оранжеватый */
+
+/* Hover-эффект для правых модулей */
+#clock:hover,
+#cpu:hover,
+#memory:hover,
+#disk:hover,
+#battery:hover {
+  box-shadow: 0 0 0 2px rgba(0,0,0,0.12) inset;
+  opacity: 0.98;  /* мягкий эффект; если вдруг ругнётся — просто удали строку */
+}
+/* Состояния батареи (если Waybar помечает .warning/.critical) */
+#battery.warning {
+  background: #F8BD96;
+  color: #161320;
+}
+#battery.critical {
+  background: #BF616A;
+  color: #B5E8E0;
+  animation: blink 1s step-end infinite;
+}
+
+/* Кнопка питания справа (если используешь #custom-power) */
+#custom-power {
+  background: #1f1b2e;
+  color: #eaeaea;
+  padding-left: 12px;
+  padding-right: 12px;
+}
+#custom-power:hover { color: #89B4FA; }
+
+/* === Анимация (опционально) === */
+@keyframes blink {
+  to {
+    background-color: #BF616A;
+    color: #B5E8E0;
+  }
+}
+
+/* === Tray — «пилюли» на каждую иконку === */
+#tray {
+  background: transparent;
+  margin: 6px 5px;
+  padding: 0 4px;
+}
+
+/* у большинства сборок иконки — кнопки без класса */
+#tray > *,
+#tray button {
+  background: rgba(34, 36, 54, 0.50);
+  border-radius: 8px;
+  padding: 4px;
+  margin: 0 4px;
+}
+
+#tray > *:hover,
+#tray button:hover {
+  box-shadow: 0 0 0 2px rgba(0,0,0,0.12) inset;
+}
+
+/* состояния, если Waybar их навешивает */
+#tray > .passive,
+#tray button.passive {
+  background: rgba(34, 36, 54, 0.35);
+}
+#tray > .needs-attention,
+#tray button.needs-attention {
+  animation: blink 0.8s step-end infinite;
+}
+
+/* на всякий — убираем лишние отступы у самих картинок */
+#tray image {
+  margin: 0;
+  padding: 0;
+}
